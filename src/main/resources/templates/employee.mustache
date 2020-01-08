@@ -1,0 +1,34 @@
+<html lang="En">
+<head>
+    <title>Spring Boot Mustache employees</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, td, th {
+            border: 1px solid #999;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Employees</h2>
+<table>
+    <tr>
+        <th>Emp Id</th>
+        <th>Emp No</th>
+        <th>Emp Name</th>
+    </tr>
+
+    {{#employees}}
+        <tr>
+            <td>{{empId}}</td>
+            <td>{{empNo}}</td>
+            <td>{{empName}}</td>
+        </tr>
+    {{/employees}}
+</table>
+</body>
+</html>
