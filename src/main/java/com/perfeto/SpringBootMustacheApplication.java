@@ -9,5 +9,4 @@ public class SpringBootMustacheApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMustacheApplication.class, args);
     }
-     
 }
