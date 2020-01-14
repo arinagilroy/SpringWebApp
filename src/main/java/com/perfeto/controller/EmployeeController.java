@@ -33,7 +33,6 @@ public class EmployeeController {
         return "employee";
     }
 
-
     @GetMapping("/search")
     public ModelAndView index(Model model, @RequestParam Long empId) {
 
