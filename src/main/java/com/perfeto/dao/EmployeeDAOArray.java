@@ -4,10 +4,7 @@ import com.perfeto.exceptions.NotFoundException;
 import com.perfeto.model.Employee;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
  
 @Repository

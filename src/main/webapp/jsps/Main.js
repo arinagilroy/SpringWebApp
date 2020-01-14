@@ -7,8 +7,8 @@ showUsers.addEventListener("click", () => {
         '/employee',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ empNo: nom, empName: name })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({empNo: nom, empName: name})
         }
     ).then(data => {
         console.log(data);
