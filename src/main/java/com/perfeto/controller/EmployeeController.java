@@ -44,11 +44,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody Employee employee) {
+    @ResponseBody
+    public List<Employee> addEmployee(@RequestBody Employee employee) {
         if (employee.getEmpNo() == null || employee.getEmpName() == null){
             throw new CantRequestBodyException();
         } else {
             employeeDAOArray.addEmployee(employee.getEmpNo(), employee.getEmpName());
+            return employeeDAOArray.getEmployees();
         }
     }
 
