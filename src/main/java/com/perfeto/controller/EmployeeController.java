@@ -1,14 +1,13 @@
 package com.perfeto.controller;
 
-import com.perfeto.dao.EmployeeDAOArray;
 import com.perfeto.dao.EmployeeRepository;
 import com.perfeto.exceptions.CantRequestBodyException;
+import com.perfeto.exceptions.NotFoundException;
 import com.perfeto.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,61 +15,58 @@ import java.util.List;
 @RequestMapping("employee")
 public class EmployeeController {
 
-//    @Autowired
-//    private EmployeeDAOArray employeeDAOArray;
-
     @Autowired
     private EmployeeRepository employeeRepository;
 
 
-//    @GetMapping
-//    public String getAllEmployee(Model model) {
-//
-//        List<Employee> employees = employeeDAOArray.getEmployees();
-//        model.addAttribute("employees", employees);
-//        return "employee";
-//    }
-//
-//    @GetMapping("{empId}")
-//    public String getAllEmployeeById(Model model, @PathVariable Long empId) {
-//        List<Employee> employees = employeeDAOArray.getEmployees();
-//        model.addAttribute("employees", employeeDAOArray.getEmployeeById(empId, employees));
-//        return "employee";
-//    }
-//
-//    @GetMapping("/search")
-//    public ModelAndView index(Model model, @RequestParam Long empId) {
-//
-//        List<Employee> employees = employeeDAOArray.getEmployees();
-//        model.addAttribute("employees", employeeDAOArray.getEmployeeById(empId, employees));
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("employee");
-//        return modelAndView;
-//    }
-//
+    @GetMapping
+    public String getAllEmployee(Model model) {
+
+        List<Employee> employees = (List<Employee>) employeeRepository.findAll();
+        model.addAttribute("employees", employees);
+        return "employee";
+    }
+
+    @GetMapping("{empId}")
+    public String getAllEmployeeById(Model model, @PathVariable Long empId) {
+        model.addAttribute("employees", employeeRepository.findByEmpId(empId));
+        return "employee";
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Employee> index(@RequestParam Long empId) {
+        return employeeRepository.findByEmpId(empId);
+    }
+
     @PostMapping
     @ResponseBody
-    public /*List<Employee>*/ void addEmployee(@RequestBody Employee employee) {
+    public List<Employee> addEmployee(@RequestBody Employee employee) {
         if (employee.getEmpNo() == null || employee.getEmpName() == null){
             throw new CantRequestBodyException();
         } else {
             //employeeDAOArray.addEmployee(employee.getEmpNo(), employee.getEmpName());
             employeeRepository.save(employee);
-            //return employeeDAOArray.getEmployees();
+            return (List<Employee>) employeeRepository.findAll();
         }
     }
-//
-//    @DeleteMapping("{empId}")
-//    public void deleteEmployee(@PathVariable Long empId) {
-//        List<Employee> employees = employeeDAOArray.getEmployees();
-//        employees.remove(employeeDAOArray.getEmployeeById(empId, employees));
-//    }
-//
-//    @PutMapping("{empId}")
-//    public String putEmployee(Model model, @PathVariable Long empId, @RequestBody Employee employee) {
-//        List<Employee> employees = employeeDAOArray.getEmployees();
-//        employeeDAOArray.updateEmployee(empId, employee);
-//        model.addAttribute("employees", employees);
-//        return "employee";
-//    }
+
+    @DeleteMapping("{empId}")
+    @ResponseBody
+    public List<Employee> deleteEmployee(@PathVariable Long empId) throws NotFoundException {
+        List<Employee> employees =  employeeRepository.findByEmpId(empId);
+        if (!employees.isEmpty()){
+            employeeRepository.deleteById(empId);
+        } else {
+           throw new NotFoundException();
+        }
+        return (List<Employee>) employeeRepository.findAll();
+    }
+
+    @PutMapping
+    @ResponseBody
+    public List<Employee> putEmployee(@RequestBody Employee employee) {
+        employeeRepository.save(employee);
+        return (List<Employee>) employeeRepository.findAll();
+    }
 }
