@@ -45,7 +45,6 @@ public class EmployeeController {
         if (employee.getEmpNo() == null || employee.getEmpName() == null){
             throw new CantRequestBodyException();
         } else {
-            //employeeDAOArray.addEmployee(employee.getEmpNo(), employee.getEmpName());
             employeeRepository.save(employee);
             return (List<Employee>) employeeRepository.findAll();
         }
@@ -58,7 +57,7 @@ public class EmployeeController {
         if (!employees.isEmpty()){
             employeeRepository.deleteById(empId);
         } else {
-           throw new NotFoundException();
+            throw new NotFoundException();
         }
         return (List<Employee>) employeeRepository.findAll();
     }

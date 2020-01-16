@@ -15,7 +15,12 @@
 </head>
 <body>
 <h2>Employees</h2>
-
+<div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sing Out"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    </form>
+</div>
 <button type="button" class="show-button" id="showAll">Показать всех юзеров</button>
 <table>
     <tr>
