@@ -23,4 +23,3 @@ showUsers.addEventListener("click", () => {
             console.log(data)
         })
 });
-

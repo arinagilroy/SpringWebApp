@@ -1,5 +1,6 @@
 package com.perfeto.controller;
 
+import com.perfeto.dao.EmployeeArrrayRepository;
 import com.perfeto.dao.EmployeeRepository;
 import com.perfeto.exceptions.CantRequestBodyException;
 import com.perfeto.exceptions.NotFoundException;
@@ -16,12 +17,10 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
-
+    private EmployeeArrrayRepository employeeRepository;
 
     @GetMapping
     public String getAllEmployee(Model model) {
-
         List<Employee> employees = (List<Employee>) employeeRepository.findAll();
         model.addAttribute("employees", employees);
         return "employee";
