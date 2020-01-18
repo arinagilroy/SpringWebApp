@@ -15,7 +15,7 @@ import java.util.Collections;
 
 @Controller
 @RequestMapping("/")
-public class MainController {
+public class RegistrationController {
 
     @Autowired
     UserRepo userRepo;

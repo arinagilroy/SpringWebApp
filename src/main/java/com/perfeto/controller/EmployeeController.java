@@ -1,11 +1,11 @@
 package com.perfeto.controller;
 
-import com.perfeto.dao.EmployeeArrrayRepository;
 import com.perfeto.dao.EmployeeRepository;
-import com.perfeto.exceptions.CantRequestBodyException;
 import com.perfeto.exceptions.NotFoundException;
 import com.perfeto.model.Employee;
+import com.perfeto.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeArrrayRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @GetMapping
     public String getAllEmployee(Model model) {
@@ -40,13 +40,10 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseBody
-    public List<Employee> addEmployee(@RequestBody Employee employee) {
-        if (employee.getEmpNo() == null || employee.getEmpName() == null){
-            throw new CantRequestBodyException();
-        } else {
-            employeeRepository.save(employee);
-            return (List<Employee>) employeeRepository.findAll();
-        }
+    public List<Employee> addEmployee(@AuthenticationPrincipal User user, @RequestBody Employee employee) {//(@AuthenticationPrincipal User user, @RequestBody Employee employee)
+        employee.setAuthor(user);
+        employeeRepository.save(employee);
+        return (List<Employee>) employeeRepository.findAll();
     }
 
     @DeleteMapping("{empId}")

@@ -1,7 +1,7 @@
 <html lang="En">
-<meta name="_csrf" content={{_csrf.token}}/>
+<meta name="_csrf" content={{_csrf.token}}>
 <!-- default header name is X-CSRF-TOKEN -->
-<meta name="_csrf_header" content={{_csrf.headerName}}/>
+<meta name="_csrf_header" content={{_csrf.headerName}}>
 <head>
     <title>Spring Boot Mustache employees</title>
     <link rel="stylesheet" type="text/css" href="/styles/style.css">
@@ -24,12 +24,13 @@
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     </form>
 </div>
-<button type="button" class="show-button" id="showAll">Показать всех юзеров</button>
+<button type="button" class="show-button" id="showAll">Add user</button>
 <table>
     <tr>
         <th>Emp Id</th>
         <th>Emp No</th>
         <th>Emp Name</th>
+        <th>Who added</th>
     </tr>
 
     {{#employees}}
@@ -37,6 +38,7 @@
             <td>{{empId}}</td>
             <td>{{empNo}}</td>
             <td>{{empName}}</td>
+            <td>{{authorName}}</td>
         </tr>
     {{/employees}}
 </table>

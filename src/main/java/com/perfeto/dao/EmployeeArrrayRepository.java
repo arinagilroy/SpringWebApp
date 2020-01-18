@@ -2,8 +2,8 @@ package com.perfeto.dao;
 
 import com.perfeto.exceptions.NotFoundException;
 import com.perfeto.model.Employee;
+import com.perfeto.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

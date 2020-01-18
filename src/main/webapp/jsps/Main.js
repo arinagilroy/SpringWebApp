@@ -4,14 +4,17 @@ showUsers.addEventListener("click", () => {
     let nom = prompt('Say empNo', '');
     let name = prompt('Say empName', '');
     let token = document.querySelector('meta[name="_csrf"]').content;
+
     fetch(
         '/employee',
         {
 
             method: 'POST',
-            headers: {'Content-Type': 'application/json',
+            headers: {
+                'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-Token': token},
+                'X-CSRF-Token': token
+            },
             body: JSON.stringify({empNo: nom, empName: name}),
             credentials: "same-origin",
         }

@@ -1,9 +1,6 @@
 package com.perfeto.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Employee {
@@ -14,12 +11,21 @@ public class Employee {
     private String empNo;
     private String empName;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
+
     static long counter = 0;
 
-    public Employee() {
- 
+    public String getAuthorName() {
+        return (author != null) ? author.getUsername() : "<none>";
     }
- 
+
+    public Employee() {
+
+    }
+
     public Employee(Long empId, String empNo,
             String empName) {
         this.empId = empId;
@@ -28,8 +34,16 @@ public class Employee {
         counter++;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
     public Employee(String empNo,
-            String empName) {
+                    String empName) {
         this.empId = counter++;
         this.empNo = empNo;
         this.empName = empName;
@@ -58,5 +72,15 @@ public class Employee {
  
     public void setEmpName(String empName) {
         this.empName = empName;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", empNo='" + empNo + '\'' +
+                ", empName='" + empName + '\'' +
+                ", author=" + author +
+                '}';
     }
 }
