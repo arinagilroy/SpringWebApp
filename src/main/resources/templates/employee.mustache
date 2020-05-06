@@ -18,13 +18,23 @@
 </head>
 <body>
 <h2>Employees</h2>
+
 <div>
     <form action="/logout" method="post">
-        <input type="submit" value="Sing Out"/>
+        <input style="background-color:rgba(0,0,0,0.1)" type="submit" value="Sing Out"/>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     </form>
 </div>
-<button type="button" class="show-button" id="showAll">Add user</button>
+
+<div>
+    <form>
+        <input style="background-color:rgba(0,0,0,0.1)" type="button" value="Add user" class="show-button" id="addUser"/>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    </form>
+
+</div>
+
+
 <table>
     <tr>
         <th>Emp Id</th>

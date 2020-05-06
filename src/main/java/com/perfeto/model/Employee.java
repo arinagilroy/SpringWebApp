@@ -59,6 +59,8 @@ public class Employee {
     }
  
     public String getEmpNo() {
+        if  (empNo == null)
+            return "null";
         return empNo;
     }
  
@@ -67,6 +69,8 @@ public class Employee {
     }
  
     public String getEmpName() {
+        if  (empName == null)
+            return "null";
         return empName;
     }
  
