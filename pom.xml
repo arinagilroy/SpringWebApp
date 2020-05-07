@@ -25,6 +25,8 @@
     </properties>
 
     <dependencies>
+
+        <!-- SQL Server - Mssql-Jdbc driver -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
